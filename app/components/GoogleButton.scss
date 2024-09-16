@@ -1,0 +1,28 @@
+@import "../variables.module.scss";
+
+.google-button{
+    background-color: $gradient-bg;
+    background-image: $gradient;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 1px;
+    border-radius: 20px;
+    border: none;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+
+    .google-button-wrapper{
+        background-color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        gap: 8px;
+        border-radius: 20px;
+        width: 100%;
+        height: 100%;
+        font-size: 12px;
+    }
+}

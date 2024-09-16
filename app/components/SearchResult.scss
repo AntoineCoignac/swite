@@ -1,0 +1,35 @@
+@import "../variables.module.scss";
+
+.search-result{
+    background-color: $dark;
+    padding: 12px;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    .left-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+
+        #search-result-title{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+
+    .right-wrapper{
+        #search-result-time{
+            white-space: nowrap;
+            min-width: 100%;
+            text-align: right;
+        }
+    }
+}

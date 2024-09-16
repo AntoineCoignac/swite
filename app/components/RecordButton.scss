@@ -1,0 +1,31 @@
+@import "../variables.module.scss";
+
+.record-button{
+    width: 100%;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .record-button-wrapper{
+        width:48px;
+        height: 48px;
+        border-radius: 16px;
+        background-color: $dark;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .record-button-icon{
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: $gradient-bg;
+            background-image: $gradient;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}   

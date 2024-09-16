@@ -1,0 +1,34 @@
+@import "../variables.module.scss";
+
+.search{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .searchbar{
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: $dark;
+        border-radius: 20px;
+
+        input{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: $white;
+            font-size: 12px;
+
+            &::placeholder{
+                color: $grey;
+            }
+        }
+    }
+
+    .search-results{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}

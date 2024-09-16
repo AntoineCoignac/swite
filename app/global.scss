@@ -1,0 +1,65 @@
+@import './variables.module.scss';
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body{
+    background-color: $black;
+    min-height: 100dvh ;
+    font-size: 14px;
+}
+
+.mini-icon{
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+}
+
+.grey-icon{
+    stroke: $grey;
+}
+
+.content-wrapper{
+    width: 100%;
+    height: calc(100dvh - 128px);
+    padding: 24px 16px;
+    overflow-y: auto;
+}
+
+.text-small{
+    font-size: 12px;
+}
+
+.text-regular{
+    font-size: 14px;
+}
+
+.text-medium{
+    font-size: 18px;
+}
+
+.text-large{
+    font-size: 40px;
+}
+
+.text-grey{
+    color: $grey;
+}
+
+.text-white{
+    color: $white;
+}
+
+.text-black{
+    color: $black;
+}
+
+a{
+    text-decoration: none;
+}
+

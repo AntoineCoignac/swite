@@ -1,5 +1,5 @@
-import localFont from "next/font/local";
-import "./globals.css";
+import './global.scss';
+import NextAuthProvider from "./Providers";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,7 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <NextAuthProvider>
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   );
