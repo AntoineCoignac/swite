@@ -6,7 +6,7 @@
     gap: 16px;
 
     .searchbar{
-        padding: 8px;
+        padding: 0 8px;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -19,6 +19,8 @@
             outline: none;
             color: $white;
             font-size: 12px;
+            width: 100%;
+            padding: 8px 0;
 
             &::placeholder{
                 color: $grey;

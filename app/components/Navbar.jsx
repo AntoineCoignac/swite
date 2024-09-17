@@ -1,8 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import "./Navbar.scss";
 import GoogleButton from "./GoogleButton";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import { UserIcon } from "@heroicons/react/outline";
+import { LogoutIcon } from "@heroicons/react/outline";
+import { useState } from "react";
 
 export default function Navbar() {
+  const { status, data: session } = useSession();
+  const [isMenuActive, setIsMenuActive] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuActive(!isMenuActive);
+  }
+
   return (
     <nav className="navbar">
       <Link href={"/"}>
@@ -35,7 +49,48 @@ export default function Navbar() {
           />
         </svg>
       </Link>
-      <GoogleButton />
+      {status === "authenticated" ? (
+        <div className="menu">
+          <div className="pp-wrapper" onClick={toggleMenu}>
+            {session.user.image ? (
+              <Image
+                src={session.user.image}
+                alt="profile"
+                width={128}
+                height={128}
+              />
+            ) : (
+              <UserIcon className="regular-icon white-icon"/>
+            )}
+          </div>
+          <div className={`menu-bg ${isMenuActive ? "active" : ""}`} onClick={toggleMenu}></div>
+          <div className={`menu-items ${isMenuActive ? "active" : ""}`}>
+            <div className="menu-item" id="user-info">
+              <div className="pp-wrapper">
+                <Image
+                  src={session.user.image}
+                alt="profile"
+                  width={128}
+                  height={128}
+                />
+              </div>
+              <span className="text-white text-regular">{session.user.name}</span>
+              <span className="text-grey text-small">{session.user.email}</span>
+            </div>
+            <div className="menu-item">
+              <button onClick={()=>signOut()} className="button secondary">
+                <LogoutIcon className="regular-icon white-icon"/>
+                <span>Se déconnecter</span>
+              </button>
+            </div>
+            <button className="toggle-menu" onClick={toggleMenu}>
+              Annuler
+            </button>
+          </div>
+        </div>
+      ) : (
+        <GoogleButton />
+      )}
     </nav>
   );
 }

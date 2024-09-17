@@ -1,11 +1,11 @@
 $black: #0B0B0B;
 $dark: #202020;
-$grey-black: #494949;
+$grey-black: #2f2f2f;
 $grey-dark: #626262;
 $grey: #BCBCBC;
 $white: #FFFFFF;
 $gradient: url("data:image/svg+xml,%3Csvg width='1000' height='1000' viewBox='0 0 1000 1000' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1000' height='1000' fill='url(%23paint0_radial_25_2)'/%3E%3Crect width='1000' height='1000' fill='url(%23paint1_radial_25_2)'/%3E%3Crect width='1000' height='1000' fill='url(%23paint2_radial_25_2)'/%3E%3Crect width='1000' height='1000' fill='%23DB00FF' fill-opacity='0.3'/%3E%3Cdefs%3E%3CradialGradient id='paint0_radial_25_2' cx='0' cy='0' r='1' gradientUnits='userSpaceOnUse' gradientTransform='translate(190 295) rotate(66.2641) scale(770.146)'%3E%3Cstop stop-color='%23CC00FF'/%3E%3Cstop offset='1' stop-color='%23CC00FF' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='paint1_radial_25_2' cx='0' cy='0' r='1' gradientUnits='userSpaceOnUse' gradientTransform='translate(850 205) rotate(136.915) scale(1163.84)'%3E%3Cstop stop-color='%234200FF'/%3E%3Cstop offset='1' stop-color='%234200FF' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='paint2_radial_25_2' cx='0' cy='0' r='1' gradientUnits='userSpaceOnUse' gradientTransform='translate(1010 1205) rotate(-90.4755) scale(1205.04 1375.73)'%3E%3Cstop stop-color='%23FF9900'/%3E%3Cstop offset='1' stop-color='%23FF9900' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3C/svg%3E%0A");
-$gradient-bg: #db00ff;
+$accent: #db00ff;
 
  
 :export {
@@ -16,5 +16,5 @@ $gradient-bg: #db00ff;
   grey: $grey;
   white: $white;
   gradient: $gradient;
-  gradient-bg: $gradient-bg;
+  accent: $accent;
 }

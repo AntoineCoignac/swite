@@ -8,7 +8,15 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
     sassOptions:{
         includePaths: [path.join(__dirname, 'styles')],
-    }
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+            },
+        ],
+    },
 };
 
 export default nextConfig;

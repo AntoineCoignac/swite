@@ -14,7 +14,7 @@ export default function GoogleButton() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_9_72)">
+          <g clipPath="url(#clip0_9_72)">
             <path
               d="M15.04 8.16675C15.04 7.64675 14.9933 7.14675 14.9067 6.66675H8V9.50341H11.9467C11.7767 10.4201 11.26 11.1967 10.4833 11.7167V13.5567H12.8533C14.24 12.2801 15.04 10.4001 15.04 8.16675Z"
               fill="#4285F4"

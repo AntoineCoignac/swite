@@ -16,12 +16,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
+        cursor: pointer;
         .record-button-icon{
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background-color: $gradient-bg;
+            background-color: $accent;
             background-image: $gradient;
             background-size: 100%;
             background-repeat: no-repeat;
