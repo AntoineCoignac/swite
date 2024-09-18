@@ -17,7 +17,7 @@ export default function Topbar({title="Lorem ipsum", to, content=null}) {
         <div className="topbar">
             <button className="back-button" onClick={goBack}>
                 <ArrowLeftIcon className="white-icon regular-icon"/>
-                <span className="text-white text-medium">{title}</span>
+                <span className="text-white text-medium" id="topbar-title">{title}</span>
             </button>
             <div className="right-wrapper">
                 {content}

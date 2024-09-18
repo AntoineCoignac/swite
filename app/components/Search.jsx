@@ -55,6 +55,7 @@ export default function Search() {
                 {filteredTexts.length > 0 ? (
                     filteredTexts.map(text => (
                         <SearchResult 
+                            id={text._id}
                             key={text._id}
                             url={`/${text._id}`}
                             title={text.title}

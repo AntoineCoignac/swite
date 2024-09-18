@@ -16,6 +16,15 @@
         border: none;
         background: none;
         cursor: pointer;
+        width: fit-content;
+        max-width: calc(100% - 120px);
+
+        #topbar-title{
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
 
     .right-wrapper{
