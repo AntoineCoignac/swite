@@ -2,8 +2,6 @@ import Link from "next/link";
 import "./SearchResult.scss";
 
 export default function SearchResult({url="/", title="Lorem ipsum dolor", time="12 min", date="12/01/2024"}) {
-
-
     return(
         <Link href={url} className="search-result">
             <div className="left-wrapper">

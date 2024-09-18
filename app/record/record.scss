@@ -1,0 +1,19 @@
+@import "../variables.module.scss";
+
+.record-wrapper{
+    .content-wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 24px;
+        padding-top: 0;
+
+        .text-wrapper{
+            padding-bottom: 48px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            scrollbar-color: transparent;
+        }
+    }
+}

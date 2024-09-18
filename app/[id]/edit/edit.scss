@@ -1,0 +1,11 @@
+@import '../../variables.module.scss';
+
+.edit{
+    .content-wrapper{
+        height: calc(100dvh - 56px);
+
+        .form{
+            height: 100%;
+        }
+    }
+}
