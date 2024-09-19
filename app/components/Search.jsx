@@ -5,19 +5,25 @@ import "./Search.scss";
 import SearchResult from "./SearchResult";
 import NoResult from "./NoResult";
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Search() {
+    const {status} = useSession();
     const [texts, setTexts] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredTexts, setFilteredTexts] = useState([]);
 
     useEffect(() => {
-        fetchTexts();
-    }, []);
+        if (status === "authenticated") {
+            fetchTexts();
+        }
+    }, [status]);
 
     useEffect(() => {
-        filterTexts();
-    }, [searchTerm, texts]);
+        if (status === "authenticated") {
+            filterTexts();
+        }
+    }, [searchTerm, texts, status]);
 
     const fetchTexts = async () => {
         try {
@@ -25,7 +31,6 @@ export default function Search() {
             if (response.ok) {
                 const data = await response.json();
                 setTexts(data);
-                console.log(data);
             } else {
                 console.error('Failed to fetch texts');
             }
@@ -36,13 +41,15 @@ export default function Search() {
 
     const filterTexts = () => {
         const filtered = texts.filter(text =>
-            text.title.toLowerCase().includes(searchTerm.toLowerCase())
+            text.title ? text.title.toLowerCase().includes(searchTerm.toLowerCase()) : (searchTerm.length > 0 ? false : true)
         );
         setFilteredTexts(filtered);
     };
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+        if (status === "authenticated") {
+            setSearchTerm(e.target.value);
+        }
     };
 
     return (
@@ -58,12 +65,15 @@ export default function Search() {
                             id={text._id}
                             key={text._id}
                             url={`/${text._id}`}
-                            title={text.title}
+                            title={text.title ? text.title : "Sans titre"}
                             time={`${Math.ceil(text.text.split(' ').length / 200)} min`}
                             date={new Date(text.createdAt).toLocaleDateString()}
                         />
                     ))
                 ) : (
+                    searchTerm.length > 0 ?
+                    <NoResult emotion="soso" text="Je n'ai rien trouvé qui pourrait correspondre à ta recherche." />
+                    :
                     <NoResult />
                 )}
             </div>

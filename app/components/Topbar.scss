@@ -16,20 +16,21 @@
         border: none;
         background: none;
         cursor: pointer;
-        width: fit-content;
-        max-width: calc(100% - 120px);
+        width: 100%;
+        overflow: hidden;
 
         #topbar-title{
-            max-width: 100%;
+            width: 100%;
+            text-align: left;
             overflow: hidden;
-            text-overflow: ellipsis;
             white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 
     .right-wrapper{
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 12px;
     }
 }

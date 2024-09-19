@@ -1,3 +1,3 @@
-import { GET } from '../route';
+import { GET, PATCH } from '../route';
 
-export { GET };
+export { GET, PATCH };

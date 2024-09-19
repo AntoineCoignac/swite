@@ -56,10 +56,10 @@ export async function GET(req) {
         const user = await User.findOne({ email: session.user.email });
 
         if (id === 'all') {
-            const texts = await Text.find({ user: user._id });
+            const texts = await Text.find({ user: user._id, isVisible: true });
             return NextResponse.json(texts, { status: 200 });
         } else {
-            const text = await Text.findOne({ _id: id, user: user._id });
+            const text = await Text.findOne({ _id: id, user: user._id, isVisible: true });
 
             if (!text) {
                 return NextResponse.json({ message: "Text not found or unauthorized access" }, { status: 404 });
@@ -69,6 +69,36 @@ export async function GET(req) {
         }
     } catch (error) {
         console.error("Error fetching text(s):", error);
+        return NextResponse.json({ message: "Server error" }, { status: 500 });
+    }
+}
+
+export async function PATCH(req) {
+    try {
+        const session = await getServerSession(authOptions);
+
+        if (!session) {
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
+
+        await connectMongoDB();
+
+        const url = new URL(req.url);
+        const id = url.pathname.split('/').pop();
+
+        const user = await User.findOne({ email: session.user.email });
+        const text = await Text.findOne({ _id: id, user: user._id });
+
+        if (!text) {
+            return NextResponse.json({ message: "Text not found or unauthorized access" }, { status: 404 });
+        }
+
+        text.isVisible = false;
+        await text.save();
+
+        return NextResponse.json({ message: "Text hidden successfully" }, { status: 200 });
+    } catch (error) {
+        console.error("Error hiding text:", error);
         return NextResponse.json({ message: "Server error" }, { status: 500 });
     }
 }

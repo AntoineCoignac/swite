@@ -58,7 +58,7 @@ export default function Record() {
                 const { data } = await response.json();
                 router.push(`/${data.id}/edit`);
             } else {
-                console.error("Failed to save text");
+                router.push(`/`);
             }
         } catch (error) {
             console.error("Error saving text:", error);
@@ -86,7 +86,7 @@ export default function Record() {
                     <span className="text-medium text-white" id="speech-text">{transcript}</span>
                 </div>
                 <div className="time-wrapper">
-                    <span className="text-large text-white font-mono" id="time">{formatTime(time)}</span>
+                    <span className="text-medium text-grey font-mono" id="time">{formatTime(time)}</span>
                 </div>
             </div>
             <StopRecordButton onClick={handleStopRecord}/>

@@ -1,22 +1,25 @@
 'use client'
 
+import React from "react";
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Topbar from "../components/Topbar";
 import "./text.scss";
 import Link from 'next/link';
-import { SpeakerphoneIcon, StopIcon } from '@heroicons/react/outline';
+import { SpeakerphoneIcon, StopIcon, PencilIcon, TrashIcon, SparklesIcon } from '@heroicons/react/outline';
 
 export default function Text({ params }) {
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
+  const [summary, setSummary] = useState('');
   const [date, setDate] = useState('');
   const router = useRouter();
   const { status } = useSession();
   const { id } = params;
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isSpeakingText, setIsSpeakingText] = useState(false);
+  const [isSpeakingSummary, setIsSpeakingSummary] = useState(false);
   const speechSynthesis = useRef(null);
   const speechUtterance = useRef(null);
 
@@ -35,6 +38,7 @@ export default function Text({ params }) {
         const data = await response.json();
         setText(data.text || '');
         setTitle(data.title || '');
+        setSummary(data.summary || '');
         const frenchDate = new Date(data.createdAt).toLocaleDateString('fr-FR', {
             year: 'numeric',
             month: 'long',
@@ -68,51 +72,124 @@ export default function Text({ params }) {
   }, []);
 
   const handleSpeech = () => {
-    if (isSpeaking) {
-      speechSynthesis.current.cancel();
-      setIsSpeaking(false);
+    if (isSpeakingText) {
+      stopSpeech();
     } else {
+      stopSpeech();
       speechUtterance.current.text = text;
       speechSynthesis.current.speak(speechUtterance.current);
-      setIsSpeaking(true);
-
+      setIsSpeakingText(true);
+  
       speechUtterance.current.onend = () => {
-        setIsSpeaking(false);
+        setIsSpeakingText(false);
+      };
+    }
+  };
+
+  const handleSummarySpeech = () => {
+    if (isSpeakingSummary) {
+      stopSpeech();
+    } else {
+      stopSpeech();
+      speechUtterance.current.text = summary;
+      speechSynthesis.current.speak(speechUtterance.current);
+      setIsSpeakingSummary(true);
+  
+      speechUtterance.current.onend = () => {
+        setIsSpeakingSummary(false);
       };
     }
   };
 
   const stopSpeech = () => {
     speechSynthesis.current.cancel();
-    setIsSpeaking(false);
-  }
+    setIsSpeakingText(false);
+    setIsSpeakingSummary(false);
+  };
 
   if (status === 'loading') {
     return <div></div>;
   }
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/text/${id}`, {
+        method: 'PATCH',
+      });
+
+      if (response.ok) {
+        router.push('/');
+      } else {
+        console.error('Failed to hide text');
+      }
+    } catch (error) {
+      console.error('Error hiding text:', error);
+    }
+  }
+
+  const generateSummary = async () => {
+    try {
+      const response = await fetch(`/api/text/${id}/summary`, {
+        method: 'POST',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setSummary(data.summary);
+      } else {
+        console.error('Échec de la génération du résumé');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la génération du résumé:', error);
+    }
+  };
+
+  const formatSummary = (summary) => {
+    return (
+      <ul className="summary-list">
+        {summary.split('\n').map((line, index) => (
+          <li key={index}>{line.trim().replace(/^-\s*/, '')}</li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div className="text">
     <div onClick={stopSpeech}>
-    <Topbar title={title} to={"/"} content={<Link href={`/${id}/edit`} className='button secondary rounded'>Modifier</Link>} />
+    <Topbar title={title ? title : "Sans titre"} to={"/"} content={<><button className='button secondary rounded' onClick={handleDelete}><TrashIcon className='mini-icon white-icon'/></button><Link href={`/${id}/edit`} className='button secondary rounded'><PencilIcon className='mini-icon white-icon'/><span>Modifier</span></Link></>} />
     </div>
       <div className="content-wrapper">
         <div className="infos-wrapper">
-            <span className='text-regular text-white'>{title}</span>
+            <span className='text-regular text-white'>{title ? title : "Sans titre"}</span>
             <span className='text-small text-grey'>{date}</span>
         </div>
         <div className="text-wrapper">
+          <div className="text-actions">
+            <span className='text-large text-white'>Résumé</span>
+            { summary &&
+            <button className={`button-icon ${isSpeakingSummary ? "active" : ""}`} id="audio-button" onClick={handleSummarySpeech}>
+                {isSpeakingSummary ? (
+                    <StopIcon className='regular-icon' />
+                ) : (
+                    <SpeakerphoneIcon className='regular-icon' />
+                )}
+            </button>}
+          </div>
+            { summary ? <span className='text-regular text-grey'>{formatSummary(summary)}</span> : <button className='button magic' onClick={generateSummary}><SparklesIcon className='regular-icon white-icon'/>
+            <span className='text-white'>Générer un résumé IA</span></button> }
+        </div>
+        <div className="text-wrapper">
             <div className="text-actions">
-                <span className='text-medium text-white'>Cours</span>
-                <button className="button-icon" id="audio-button" onClick={handleSpeech}>
-                {isSpeaking ? (
+                <span className='text-large text-white'>Cours</span>
+                <button className={`button-icon ${isSpeakingText ? "active" : ""}`} id="audio-button" onClick={handleSpeech}>
+                {isSpeakingText ? (
                     <StopIcon className='regular-icon' />
                 ) : (
                     <SpeakerphoneIcon className='regular-icon' />
                 )}
                 </button>
             </div>
-            <span className='text-regular text-white'>{text}</span>
+            <span className='text-regular text-grey'>{text}</span>
         </div>
       </div>
     </div>
