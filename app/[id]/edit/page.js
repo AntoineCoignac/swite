@@ -15,6 +15,10 @@ export default function Edit({ params }) {
   const { status } = useSession();
   const { id } = params;
 
+  const [isSaving, setIsSaving] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/');
@@ -24,6 +28,7 @@ export default function Edit({ params }) {
   }, [status, id]);
 
   const fetchText = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`/api/text/${id}`);
       if (response.ok) {
@@ -37,9 +42,11 @@ export default function Edit({ params }) {
     } catch (error) {
       console.error('Error fetching text:', error);
     }
+    setIsLoading(false);
   };
 
   const handleSave = async () => {
+    setIsSaving(true);
     try {
       const response = await fetch(`/api/text`, {
         method: 'POST',
@@ -57,19 +64,19 @@ export default function Edit({ params }) {
     } catch (error) {
       console.error('Error saving text:', error);
     }
+    setIsSaving(false);
   };
-
-  if (status === 'loading') {
-    return <div></div>;
-  }
 
   return (
     <div className="edit">
-      <Topbar title="Modifier" content={<button className='button primary rounded' onClick={handleSave}><SaveIcon className='mini-icon black-icon'/><span>Sauvegarder</span></button>} />
+      <Topbar isLoading={isLoading} title="Modifier" content={<button className='button primary rounded' onClick={handleSave} disabled={isSaving}><SaveIcon className='mini-icon black-icon'/><span>Sauvegarder</span></button>} />
       <div className="content-wrapper">
         <div className='form'>
           <div className="field">
             <span className='text-medium text-white'>Titre</span>
+            {isLoading ?
+            <div className="blank-text-regular blank-text-full"></div>
+            :
             <input
               className='input'
               type="text"
@@ -77,26 +84,43 @@ export default function Edit({ params }) {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Histoire - Chapitre 1"
             />
+            }
           </div>
           {summary != undefined && (
             <div className="field">
               <span className='text-medium text-white'>Résumé</span>
+              {isLoading ?
+              <>
+              <div className="blank-text-regular blank-text-full"></div>
+              <div className="blank-text-regular blank-text-full"></div>
+              <div className="blank-text-regular"></div>
+              </>
+              :
               <textarea
                 className='input'
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
                 placeholder="Résumé de l'histoire"
               />
+              }
             </div>
           )}
           <div className="field height-full">
             <span className='text-medium text-white'>Cours</span>
+            {isLoading ?
+            <>
+            <div className="blank-text-regular blank-text-full"></div>
+            <div className="blank-text-regular blank-text-full"></div>
+            <div className="blank-text-regular"></div>
+            </>
+            :
             <textarea
               className='input'
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="En 1914, la guerre éclata entre l'Allemagne et la France."
             />
+            }
           </div>
         </div>
       </div>

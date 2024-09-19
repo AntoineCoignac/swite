@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "@heroicons/react/outline";
 import "./Topbar.scss";
 import { useRouter } from "next/navigation";
 
-export default function Topbar({title="Lorem ipsum", to, content=null}) {
+export default function Topbar({title="Lorem ipsum", to, content=null, isLoading=false}) {
     const router = useRouter();
 
     const goBack = () => {
@@ -17,10 +17,18 @@ export default function Topbar({title="Lorem ipsum", to, content=null}) {
         <div className="topbar">
             <button className="back-button" onClick={goBack}>
                 <ArrowLeftIcon className="white-icon regular-icon"/>
+                {isLoading ?
+                <span className="blank-text-medium"></span>
+                :
                 <span className="text-white text-medium" id="topbar-title">{title}</span>
+                }
             </button>
             <div className="right-wrapper">
-                {content}
+                {content && isLoading ?
+                <div className="blank-button"></div>
+                :
+                content
+                }
             </div>
         </div>
     )

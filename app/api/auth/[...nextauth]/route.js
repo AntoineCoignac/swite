@@ -15,7 +15,7 @@ export const authOptions = {
             if (account.provider === "google") {
                 const { email, name, image } = user;
                 try {
-                    await fetch("http://localhost:3000/api/user", {
+                    await fetch("/api/user", {
                         method: "POST",
                         body: JSON.stringify({ email, name, image }),
                         headers: {

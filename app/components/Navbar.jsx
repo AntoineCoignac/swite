@@ -13,6 +13,8 @@ export default function Navbar() {
   const { status, data: session } = useSession();
   const [isMenuActive, setIsMenuActive] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
   }
@@ -89,7 +91,7 @@ export default function Navbar() {
           </div>
         </div>
       ) : (
-        <GoogleButton />
+        status === "loading" ? <div className="blank-button"></div> : <GoogleButton />
       )}
     </nav>
   );

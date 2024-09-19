@@ -7,6 +7,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import Topbar from "../components/Topbar";
 import StopRecordButton from "../components/StopRecordButton";
 import "./record.scss";
+import NoResult from "../components/NoResult";
 
 export default function Record() {
     const { status } = useSession();
@@ -46,7 +47,7 @@ export default function Record() {
         SpeechRecognition.stopListening();
         setIsRunning(false);
         try {
-            const response = await fetch("http://localhost:3000/api/text", {
+            const response = await fetch("/api/text", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,7 +84,11 @@ export default function Record() {
             <Topbar title="Enregistrer"/>
             <div className="content-wrapper">
                 <div className="text-wrapper" ref={textWrapperRef}>
+                    {transcript.length > 0 ? 
                     <span className="text-medium text-white" id="speech-text">{transcript}</span>
+                    :
+                    <NoResult emotion="happy" text="Ah super ! J'écoute. Le texte s'affichera ici." />
+                    }
                 </div>
                 <div className="time-wrapper">
                     <span className="text-medium text-grey font-mono" id="time">{formatTime(time)}</span>

@@ -32,5 +32,22 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+
+        .blank-item{
+            width: 100%;
+            height: 64.4px;
+            background-color: $dark;
+            border-radius: 16px;
+            animation: skeleton 1s infinite alternate;
+
+            @keyframes skeleton {
+                from {
+                    opacity: 0.2;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+        }
     }
 }

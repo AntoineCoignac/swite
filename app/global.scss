@@ -134,6 +134,11 @@ ul{
     gap: 8px;
     font-size: 14px;
 
+    &:disabled{
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
     *{
         font-size: 14px;
     }
@@ -202,6 +207,53 @@ ul{
     &.rounded{
         border-radius: 32px;
         padding: 8px 12px;
+    }
+}
+
+.blank-button{
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background-color: $dark;
+    animation: skeleton 1s infinite alternate;
+}
+
+.blank-text-small{
+    width: 60px;
+    height: 18px;
+    border-radius: 8px;
+    background-color: $dark;
+    animation: skeleton 1s infinite alternate;
+}
+
+.blank-text-regular{
+    width: 100px;
+    height: 20px;
+    border-radius: 8px;
+    background-color: $dark;
+    animation: skeleton 1s infinite alternate;
+}
+
+.blank-text-medium{
+    width: 100px;
+    height: 24px;
+    border-radius: 8px;
+    background-color: $dark;
+    animation: skeleton 1s infinite alternate;
+}
+
+.blank-text-small, .blank-text-regular, .blank-text-medium{
+    &.blank-text-full{
+        width: 100%;
+    }
+}
+
+@keyframes skeleton {
+    from {
+        opacity: 0.2;
+    }
+    to {
+        opacity: 1;
     }
 }
 

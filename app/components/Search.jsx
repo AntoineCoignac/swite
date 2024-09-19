@@ -13,9 +13,13 @@ export default function Search() {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredTexts, setFilteredTexts] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         if (status === "authenticated") {
             fetchTexts();
+        }else if(status === "unauthenticated"){
+            setIsLoading(false);
         }
     }, [status]);
 
@@ -26,8 +30,9 @@ export default function Search() {
     }, [searchTerm, texts, status]);
 
     const fetchTexts = async () => {
+        setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:3000/api/text/all');
+            const response = await fetch('/api/text/all');
             if (response.ok) {
                 const data = await response.json();
                 setTexts(data);
@@ -37,6 +42,7 @@ export default function Search() {
         } catch (error) {
             console.error('Error fetching texts:', error);
         }
+        setIsLoading(false);
     };
 
     const filterTexts = () => {
@@ -58,6 +64,11 @@ export default function Search() {
                 <SearchIcon className="search-icon mini-icon grey-icon" />
                 <input type="text" placeholder="Rechercher un cours" onChange={handleSearchChange} value={searchTerm} />
             </div>
+            { isLoading ? <div className="search-results">
+                <div className="blank-item"></div>
+                <div className="blank-item"></div>
+                <div className="blank-item"></div>
+            </div> : (
             <div className="search-results">
                 {filteredTexts.length > 0 ? (
                     filteredTexts.map(text => (
@@ -76,7 +87,7 @@ export default function Search() {
                     :
                     <NoResult />
                 )}
-            </div>
+            </div> )}
         </div>
 
     )
