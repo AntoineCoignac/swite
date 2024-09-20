@@ -99,7 +99,7 @@ a{
     text-decoration: none;
 }
 
-ul{
+ul:not(.splide__list, .splide__pagination){
     list-style: none;
     display: flex;
     flex-direction: column;

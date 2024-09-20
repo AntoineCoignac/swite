@@ -2,10 +2,13 @@ import { ArrowLeftIcon } from "@heroicons/react/outline";
 import "./Topbar.scss";
 import { useRouter } from "next/navigation";
 
-export default function Topbar({title="Lorem ipsum", to, content=null, isLoading=false}) {
+export default function Topbar({title="Lorem ipsum", to=null, content=null, isLoading=false, onClick=null}) {
     const router = useRouter();
 
     const goBack = () => {
+        if (onClick) {
+            onClick();
+        }
         if(to){
             router.push(to);
         }else{

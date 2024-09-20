@@ -14,6 +14,7 @@ import {
   TrashIcon,
   SparklesIcon,
 } from "@heroicons/react/outline";
+import NoResult from "../components/NoResult";
 
 export default function Text({ params }) {
   const [text, setText] = useState("");
@@ -243,6 +244,7 @@ export default function Text({ params }) {
               {formatSummary(summary)}
             </span>
           ) : (
+            text.length >= 500 && text.length <= 8000 ? (
             <button
               className="button magic"
               onClick={generateSummary}
@@ -255,7 +257,7 @@ export default function Text({ params }) {
                   : "Générer un résumé IA"}
               </span>
             </button>
-          )}
+          ) : <NoResult emotion="fine" text={`Oops, votre texte est ${text.length < 500 ? "trop court" : "trop long"} pour générer un résumé IA.`}/>)}
         </div>
         <div className="text-wrapper">
           <div className="text-actions">

@@ -17,6 +17,18 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        animation: variation 3s infinite alternate;
+
+        @keyframes variation {
+            0% {
+                background-color: $dark;
+                scale: 1;
+            }
+            100% {
+                background-color: $grey-black;
+                scale: 1.05;
+            }
+        }
 
         .stop-record-button-icon{
             width: 20px;
@@ -27,6 +39,22 @@
             background-size: 100%;
             background-repeat: no-repeat;
             background-position: center;
+            animation: rgb 10s infinite;
+
+            @keyframes rgb {
+                0% {
+                    background-color: $accent;
+                }
+                16% {
+                    background-color: blue;
+                }
+                87% {
+                    background-color: orange;
+                }
+                100%{
+                    background-color: $accent;
+                }
+            }
         }
     }
 }   
