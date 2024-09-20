@@ -1,5 +1,60 @@
 @import "../variables.module.scss";
 
 .cta-card{
+    padding: 2px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 100%;
+    border: none;
+    appearance: none;
+    border-radius: 16px;
+    cursor: pointer;
+
+    &:active{
+        filter: brightness(1.1);
+    }
+
+    .cta-card-wrapper{
+        width: 100%;
+        height: 100%;
+        padding: 24px 16px;
+        border-radius: 15px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: left;
+
+        #title{
+            font-weight: 500;
+        }
+
+        #no-click-btn{
+            background-color: $white;
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+    }
+
+    &.primary{
+        background-color: $dark;
+
+        .cta-card-wrapper{
+            background-color: $black;
+        }
+    }
+
+    &.magic{
+        background-color: $accent;
+        background-image: $gradient;
+        background-position: center;
+        background-size: cover;
+
+        .cta-card-wrapper{
+            background-color: #200A23;
+        }
+    }
 }

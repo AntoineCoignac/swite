@@ -1,7 +1,29 @@
 @import "../variables.module.scss";
 
 .ctas{
-    .splide__slide{
-        width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .splide__track{
+        overflow: visible;
+        .splide__slide{
+            width: 200px !important;
+            height: auto;
+        }
+    }
+
+    .splide__pagination{
+        position: static;
+
+        .splide__pagination__page{
+            background-color: $grey;
+            opacity: 1;
+
+            &.is-active{
+                background-color: $white;
+                transform: scale(1);
+            }
+        }
     }
 }
