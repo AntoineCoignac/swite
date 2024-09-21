@@ -334,6 +334,7 @@ ul:not(.splide__list, .splide__pagination){
     color: $white;
     outline: none;
     resize: none;
+    user-select:text;
 
     &::placeholder{
         color: $grey;
