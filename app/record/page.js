@@ -149,7 +149,6 @@ function createGrammarList() {
         "cybercriminal",
         "cyberattaque",
         "cybersecurité",
-        "cybersécurité",
         "cybermenace",
         "blacklist",
         "whitelist",
@@ -300,9 +299,6 @@ function createGrammarList() {
         "3ds Max",
         "Figma",
         "Sketch",
-        "Adobe XD",
-        "InVision",
-        "Zeplin",
         "UXPin",
         "Framer",
         "Adobe XD",
@@ -395,6 +391,7 @@ export default function Record() {
     const textWrapperRef = useRef(null);
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+    const isFirefox = typeof InstallTrigger !== 'undefined';
 
     const { transcript } = useSpeechRecognition();
 
@@ -412,15 +409,18 @@ export default function Record() {
         if (status === "unauthenticated") {
             router.push("/");
         } else if (status === "authenticated") {
-            const grammar = createGrammarList();
-            const speechRecognitionList = new webkitSpeechGrammarList();
-            speechRecognitionList.addFromString(grammar, 1);
+            let grammar, speechRecognitionList;
+            if (!isFirefox){
+                grammar = createGrammarList();
+                speechRecognitionList = new webkitSpeechGrammarList();
+                speechRecognitionList.addFromString(grammar, 1);
+            }
 
             SpeechRecognition.startListening({
                 continuous: true,
                 language: "fr-FR",
                 interimResults: true,
-                grammars: speechRecognitionList,
+                grammars: !!isFirefox ? speechRecognitionList : undefined,
             });
             setIsRunning(true);
         }

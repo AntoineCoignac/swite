@@ -12,7 +12,11 @@ export default function Topbar({title="Lorem ipsum", to=null, content=null, isLo
         if(to){
             router.push(to);
         }else{
-            window.history.back();
+            if (document.referrer.includes("accounts.google")) {
+                router.push("/");
+            } else {
+                window.history.back();
+            }
         }
     }
 
