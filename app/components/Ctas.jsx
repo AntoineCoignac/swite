@@ -32,7 +32,7 @@ export default function Ctas() {
             </div>
         </div> 
         :
-        <Splide className="ctas" options={{arrows: false, pagination: true, width: "100%", gap: "16px"}}>
+        <Splide className="ctas" options={{arrows: false, pagination: true, width: "100%"}}>
             <SplideSlide>
                 <CtaCard title="Crée un résumé de cours avec l’IA" button="Commencer à enregistrer" to="/record" style="magic" />
             </SplideSlide>

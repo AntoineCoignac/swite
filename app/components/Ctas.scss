@@ -6,10 +6,15 @@
     gap: 16px;
 
     .splide__track{
-        overflow: visible;
+        overflow: hidden;
         .splide__slide{
-            width: 200px !important;
+            width: 216px !important;
             height: auto;
+            padding-left: 16px;
+
+            &:last-child{
+                width: 232px !important;
+            }
         }
     }
 
